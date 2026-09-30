@@ -1,0 +1,36 @@
+{
+  "photon.pt": {
+    "sha256": "12db5248c8dd9e27271553f03891e37c5124f24642ec37e90a9c25f30e3a304e",
+    "bytes": 405861,
+    "source_checkpoint_sha256": "30b2817ce86da30e93472c2bdbff45a934515482155f6a236c68536cec22ed05",
+    "tensor_sha256": "89f8973fbdb0d24f8c061739193f937e179c651b16155c00014360a5558742a5",
+    "tensors": 78,
+    "tensor_values": 96452,
+    "purpose": "photon",
+    "source_step": 60000
+  },
+  "mr-density.pt": {
+    "sha256": "a10a978a0e4238c2c26f2ef2e91c658ff4a56e48eeb958f077bee36491ceff71",
+    "bytes": 204234685,
+    "source_checkpoint_sha256": "e3a8e6a2cfd34f804f1256995bc1480f4065db854b55aa23aab903d2e183b570",
+    "tensor_sha256": "78fb92d75655fc792c7d88c582e85d196497690c0d72c5b6f3a954077e5e8a9f",
+    "tensors": 172,
+    "tensor_values": 51045473,
+    "purpose": "density",
+    "source_step": 1500
+  },
+  "proton.pt": {
+    "sha256": "2b758dc10f8315a705589a415459a3f92a8a896b05a05dc00c2e3c7c99905e6b",
+    "bytes": 401189,
+    "source_checkpoint_sha256": "5bb719f2f93634449745b221adf0a98864988fd1382fa8117956f76cc27f2f09",
+    "tensors": 78,
+    "tensor_values": 95268,
+    "purpose": "analytical proton baseline plus learned correction",
+    "source_step": 50000,
+    "sigma_params_used": [
+      4.950340270996094,
+      0.02,
+      1.5
+    ]
+  }
+}

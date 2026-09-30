@@ -1,0 +1,21 @@
+{
+  "script": "scripts/train_proton.py",
+  "requires_initialization": false,
+  "args": {
+    "val_case": "1ABB118,1THB011",
+    "val_beam": 2,
+    "steps": 50000,
+    "queries": 8192,
+    "lr": 0.002,
+    "weight_decay": 0.01,
+    "warmup_steps": 500,
+    "seed": 0,
+    "val_every": 1000,
+    "val_beamlets": 16,
+    "log_every": 50,
+    "cache_gb": 10.0,
+    "dose_scale": 0.0009138865862041712,
+    "lambda_idd": 0.5,
+    "sel_lambda": 1.0
+  }
+}

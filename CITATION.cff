@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Please cite this software and the DoseRAD dataset when using these models."
+type: software
+title: "PRISM-X / PRISM-P: Analytical–Neural Photon and Proton Dose Engines"
+version: "1.0.0"
+license: Apache-2.0
+authors:
+  - family-names: Sentker
+    given-names: Thilo
+  - family-names: Büttgen
+    given-names: Laura
+  - family-names: Gebauer
+    given-names: Johannes
+repository-code: "https://github.com/IPMI-ICNS-UKE/prism-x-doserad2026"

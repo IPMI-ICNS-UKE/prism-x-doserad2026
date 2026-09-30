@@ -1,0 +1,6 @@
+{
+  "dataset": "DoseRAD 2026 training cases",
+  "role": "Historical dose-engine validation exclusions, not an independent test set",
+  "photon": {"validation": ["1ABB118", "1THB011"]},
+  "proton": {"validation": ["1ABB118", "1THB011"]}
+}

@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+data/
+runs/
+results/
+*.pt
+*.pth
+*.mha
+*.nii
+*.nii.gz
+.DS_Store
+*.zip
+*.tar.gz
+.env
+.env.*

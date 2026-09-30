@@ -1,0 +1,25 @@
+{
+  "script": "scripts/train_stage0.py",
+  "requires_initialization": false,
+  "args": {
+    "val_case": "1ABB118,1THB011",
+    "steps": 60000,
+    "queries": 8192,
+    "lr": 0.002,
+    "weight_decay": 0.01,
+    "warmup_steps": 500,
+    "seed": 0,
+    "val_every": 500,
+    "val_cps": 16,
+    "log_every": 50,
+    "cache_gb": 30,
+    "dose_scale": 5.437449455848826e-05,
+    "challenge_weight": 0,
+    "lambda_idd": 0,
+    "lambda_plan": 0,
+    "lambda_full_idd": 0,
+    "selection_metric": "loss",
+    "checkpoint_every": 500,
+    "num_workers": 0
+  }
+}
