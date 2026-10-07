@@ -1,0 +1,27 @@
+{
+  "shape_fitting": {
+    "photon": {
+      "case": "1ABB006",
+      "control_points": 90,
+      "selection": "unique(((arange(90) + 0.5) * 540 / 90).astype(int)); original plan order",
+      "file": "commissioning/synthrad_photon_pdd.npz",
+      "sha256": "997936dea25e32932036efedf50f1afd335290302388d0095fa1bf0141b217ed",
+      "evidence": "Commissioning record of 11 June 2026 specifies 90 control points of 1ABB006; the released table is byte-identical to the archived table."
+    },
+    "proton": {
+      "case": "1ABB006",
+      "beamlets": 200,
+      "selection": "unique(((arange(200) + 0.5) * 1080 / 200).astype(int)); original plan order",
+      "file": "commissioning/proton_bragg.npz",
+      "sha256": "8e1e0762b8b2188cfda7fd94a640a682c2c64b8692dabd435b5ede8af177b297",
+      "evidence": "Archived recommissioning command specifies 1ABB006 and 200 beamlets. The released table is byte-identical to the archived table after amplitude calibration."
+    }
+  },
+  "dose_amplitude_calibration": {
+    "development_cases": ["1ABB118", "1THB011"],
+    "proton": "The fitted training scale 0.0009138865862041712 was multiplied by 1.015 for inference; range and lateral width were unchanged.",
+    "photon_mri": "The released site-specific scales were calibrated on these development cases.",
+    "refitted_for_this_evaluation": false
+  },
+  "fluence_blur_standard_deviations_mm": [5, 15, 45]
+}

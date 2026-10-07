@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-07",
+  "release": {
+    "tag": "v1.0.0",
+    "commit": "45b999efe45a23d666d3ea08f16c5a18b40891f0",
+    "weight_manifest": "weights/manifest.json",
+    "photon_ema_update": 60000,
+    "proton_ema_update": 50000,
+    "mr_model": "final shared density network",
+    "models_changed": false,
+    "calibration_changed": false
+  },
+  "cohort": {
+    "cases": [
+      "1ABB118",
+      "1THB011"
+    ],
+    "role": "development; excluded from neural weight training but used for development and calibration",
+    "cross_validation": false,
+    "mr_exclusion_evidence": "Both cases excluded throughout training, author confirmation 2026-10-06."
+  },
+  "evaluation": {
+    "protocol": "experiments/report/matched-output-evaluation.json",
+    "results": "experiments/report/release-results.json",
+    "range_observations": "experiments/report/r80-beamlets.json",
+    "build_code": "prismx/report_evaluation.py",
+    "score_code": "experiments/report/score_matched_output.py",
+    "commands": "experiments/report/reproduce.py",
+    "dependencies": "experiments/report/requirements.txt",
+    "complete": true,
+    "segments_per_patient": {
+      "photon": 540,
+      "proton": 1080
+    },
+    "reference_guided_inference": false,
+    "official_challenge_scorer": false
+  },
+  "commissioning": "experiments/report/commissioning.json",
+  "proton_checkpoint": "experiments/report/proton-checkpoint.json",
+  "mr_training": {
+    "stage_metadata": "configs/report/mr-lineage.json",
+    "external_pretrained_initialization": false,
+    "final_density_only_updates": 1500,
+    "exact_full_retraining_recipe": false,
+    "remaining_details": [
+      "initial transition checkpoint selection",
+      "exact abdomen-only training data view"
+    ]
+  },
+  "runtime_scope": "Exploratory synchronized prediction timings on shared GPUs, not complete-container or dedicated-hardware benchmarks."
+}

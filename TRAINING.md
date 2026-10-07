@@ -28,7 +28,7 @@ Commands are printed first; add `--execute` to train. The historical run used 60
 Photon MR and Proton MR use the supplied pretrained checkpoint `weights/mr-density.pt`.
 The network definition and training code are included in `prismx/mr_density.py` and `scripts/train_mr_density.py`. A historical MR retraining recipe is not provided.
 
-The trainer supports density supervision and an optional dose-supervised stage; this is not a claim that the supplied checkpoint used both. A small synthetic density-only training check is:
+The supplied network's own initialization included both density and dose supervision. Its final 1,500 updates were density-only. It did not start from an external pretrained model. The revised report evaluates this shared network on the same two development patients as CT, without cross-validation. Stage metadata are in `configs/report/mr-lineage.json`, and the evaluation protocol is described in [Report provenance](REPORT_PROVENANCE.md). A small synthetic density-only training check is:
 
 ```sh
 python -m scripts.train_mr_density --smoke --device cpu \
@@ -47,4 +47,4 @@ Add `--execute` to start training. Proton cases use the same layout, with dose f
 
 The trainer preserves the checkpoint's analytical basis: entrance width from `proton_bragg.npz`, depth-growth parameters `(0.02, 1.5)`, and no extra halo. The recipe's training dose scale and the table's inference calibration differ slightly; each is used at its respective stage. Training starts from initialization, not from the released weights.
 
-The supplied Photon checkpoint is the 60,000-update model; Proton is the 50,000-update model. These historical releases are not the newer paper retrainings. Exact numeric reproduction across hardware and library versions is not guaranteed.
+The supplied Photon checkpoint is the 60,000-update model; Proton is the 50,000-update model. These are the challenge-era models, not the later journal-paper retrainings. The revised report uses these models and their unchanged release calibration. See [Report provenance](REPORT_PROVENANCE.md). Exact numeric reproduction across hardware and library versions is not guaranteed.

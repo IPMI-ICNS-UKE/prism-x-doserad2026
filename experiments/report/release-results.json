@@ -1,0 +1,246 @@
+{
+  "date": "2026-10-07",
+  "status": "complete",
+  "release_commit": "45b999efe45a23d666d3ea08f16c5a18b40891f0",
+  "protocol": {
+    "version": 3,
+    "release_commit": "45b999efe45a23d666d3ea08f16c5a18b40891f0",
+    "cases": [
+      "1ABB118",
+      "1THB011"
+    ],
+    "tasks": [
+      "photon_ct",
+      "photon_mri",
+      "proton_ct",
+      "proton_mri"
+    ],
+    "cohort_role": "development; excluded from neural weight training but used for model development and calibration",
+    "mr_exclusion_evidence": "Author confirmation, 2026-10-06: both patients were excluded throughout density-network training.",
+    "cross_validation": false,
+    "density_model": "weights/mr-density.pt",
+    "photon_model": "weights/photon.pt",
+    "proton_model": "weights/proton.pt",
+    "calibration": "unchanged release v1.0.0 commissioning files; no fitting or scale sweep",
+    "segments": "all segments in each patient's released training plan",
+    "inference_batch_segments": 12,
+    "batching": "Reset the released per-invocation cone cache every 12 segments; reuse the same density volume and unchanged model. Accumulate all output frames.",
+    "plan_weights": "unit weights, not clinical optimization weights",
+    "minimum_cutoff_gy": 3e-7,
+    "prediction_path": "unmodified released runtime; collect float32 output frames after cutoff before serialization",
+    "plan_mae": "high >=80%, mid [30%,80%), low [10%,30%) of reference plan maximum; normalized by that maximum",
+    "integral_ratio": "sum(prediction)/sum(reference), complete native grid",
+    "gamma": {
+      "local": true,
+      "dose_percent": 1,
+      "distance_mm": 1,
+      "lower_percent_dose_cutoff": 10,
+      "interp_fraction": 10,
+      "max_gamma": 2
+    },
+    "r80": {
+      "beamlets_per_patient_per_proton_task": 150,
+      "selection": "evenly spaced segment indices",
+      "radius_mm": 3,
+      "reference_gate_fraction": 0.01,
+      "bin_width_wed_mm": 1,
+      "coordinate_density": "task density",
+      "prediction": "native-grid output, including cutoff",
+      "exclude": "undefined reference or prediction R80, or no reference falloff below 50% after peak",
+      "reference": "unthresholded MC; separate original range-scoring analysis"
+    },
+    "timing": "synchronized dose prediction only on a shared GPU; exploratory, not a publication runtime benchmark; excludes density, loading, metric computation and serialization",
+    "original_build_protocol": "release-evaluation.json",
+    "original_build_protocol_sha256": "1bf256ba8856d1b997fb93c95d729e6ce6c0511808657e6679c6701e259df379",
+    "reference_cutoff_gy": 3e-7,
+    "cutoff_application": "predicted and reference segment dose <= cutoff is zeroed before unit-weight plan summation",
+    "prediction_changed_from_original_build": false,
+    "selection": "All complete original release-output plans; no diagnostic preprocessing variant or refitted calibration selected",
+    "comparison_scope": "Thresholded release-output maps, not the unthresholded physical dose field or hidden leaderboard"
+  },
+  "weights_sha256": {
+    "photon": "12db5248c8dd9e27271553f03891e37c5124f24642ec37e90a9c25f30e3a304e",
+    "proton": "2b758dc10f8315a705589a415459a3f92a8a896b05a05dc00c2e3c7c99905e6b",
+    "mr_density": "a10a978a0e4238c2c26f2ef2e91c658ff4a56e48eeb958f077bee36491ceff71"
+  },
+  "models_changed": false,
+  "calibration_changed": false,
+  "cross_validation": false,
+  "reference_integral_removed_fraction": {
+    "photon_1ABB118": 0.0281286545544982,
+    "photon_1THB011": 0.0884399177844103,
+    "proton_1ABB118": 0.006732237953245512,
+    "proton_1THB011": 0.0051996540018345305
+  },
+  "scoring_sources_sha256": {
+    "photon": "1d86d9e5ef892f3831152b97cba6633929335c6d08bd9c73826b3ed3076e8f54",
+    "proton": "26268d8efc56fc922d138a4657b07ec55d3661bbcb19e24e6944fe7f6ec05dbe"
+  },
+  "provenance_note": "Original build outputs were rescored without changed inference. The reusable CLI reads matched-output-evaluation.json and verifies the frozen build protocol. Its cutoff, plan metrics and R80 aggregation use the same numerical operations as the executed scorers identified above.",
+  "results": [
+    {
+      "task": "photon_ct",
+      "case": "1ABB118",
+      "segments": 540,
+      "plan_sha256": "f6eb0891bba5a2f3d4222f024c73040480701327fc3b5d1dbe666427e5b3f5c4",
+      "build_sha256": "f2c621de522dce7823d38ceb2f7c3ea1fd0ace2b9cb312d6bf7f39d94928dc73",
+      "mae_bands": {
+        "high": 0.0035432489050806564,
+        "mid": 0.0018240664447576227,
+        "low": 0.0010278505031673256
+      },
+      "gamma_fraction": 0.9858626974712857,
+      "gamma_voxels": 794989,
+      "integral_ratio": 0.9962986423222713,
+      "interp_fraction": 10,
+      "max_gamma": 2,
+      "r80_valid": 0,
+      "r80_attempted": 0,
+      "r80_mae_mm": null,
+      "r80_bias_mm": null
+    },
+    {
+      "task": "photon_ct",
+      "case": "1THB011",
+      "segments": 540,
+      "plan_sha256": "56d730ae325391c56c6ee1238dd74a395bd9899254e6fde5d7970a0574baf3c5",
+      "build_sha256": "29e540384a0d9d4604641a1c057d00a7367ea39febe9081988942d34509eda76",
+      "mae_bands": {
+        "high": 0.00439514512875399,
+        "mid": 0.0019969204789625295,
+        "low": 0.0008829364458346401
+      },
+      "gamma_fraction": 0.9945069521386994,
+      "gamma_voxels": 192243,
+      "integral_ratio": 0.9973047199366263,
+      "interp_fraction": 10,
+      "max_gamma": 2,
+      "r80_valid": 0,
+      "r80_attempted": 0,
+      "r80_mae_mm": null,
+      "r80_bias_mm": null
+    },
+    {
+      "task": "proton_ct",
+      "case": "1ABB118",
+      "segments": 1080,
+      "plan_sha256": "1062ca636a4f1a4c522902f8c049b6f4cb7a2e1ae4fce889b8a8df2a6cb76c1f",
+      "build_sha256": "c3d668e400ac0cfd4243475e67b44d9fa4e91c1737447b625f20b0c99da9973c",
+      "mae_bands": {
+        "high": 0.012838197314262934,
+        "mid": 0.007486064594064715,
+        "low": 0.003762214407330492
+      },
+      "gamma_fraction": 0.9499452151672325,
+      "gamma_voxels": 630649,
+      "integral_ratio": 0.9947392426559297,
+      "r80_reference": "unthresholded MC; unchanged original range analysis",
+      "r80_valid": 139,
+      "r80_attempted": 150,
+      "r80_mae_mm": 0.6906474820143885,
+      "r80_bias_mm": -0.08633093525179857
+    },
+    {
+      "task": "proton_ct",
+      "case": "1THB011",
+      "segments": 1080,
+      "plan_sha256": "580586ef1c904e23ec7cb190fca6fec51a940dcaea2fe165c9508cc60ef92009",
+      "build_sha256": "6072302b846af139fd655868f9f4e1d4d49f3ce522ebb2d38ee89fe3385dae1a",
+      "mae_bands": {
+        "high": 0.011705097117636929,
+        "mid": 0.006671292649407672,
+        "low": 0.0033570021308301657
+      },
+      "gamma_fraction": 0.9478859995599652,
+      "gamma_voxels": 763576,
+      "integral_ratio": 0.9971673219617112,
+      "r80_reference": "unthresholded MC; unchanged original range analysis",
+      "r80_valid": 145,
+      "r80_attempted": 150,
+      "r80_mae_mm": 0.36551724137931035,
+      "r80_bias_mm": -0.06206896551724138
+    },
+    {
+      "task": "photon_mri",
+      "case": "1ABB118",
+      "segments": 540,
+      "plan_sha256": "00af53dce6e31cf67c24d3c00e27dc75a543e39ff246d210ec2b08693af2e96f",
+      "build_sha256": "8f75e39e35e663388f36dc47c95840b9b0e6bd80841794352ba855b7cee9b846",
+      "mae_bands": {
+        "high": 0.004250157560305915,
+        "mid": 0.0034827089021224255,
+        "low": 0.0019040905846971058
+      },
+      "gamma_fraction": 0.9226467284452993,
+      "gamma_voxels": 794989,
+      "integral_ratio": 0.9976667716383943,
+      "interp_fraction": 10,
+      "max_gamma": 2,
+      "r80_valid": 0,
+      "r80_attempted": 0,
+      "r80_mae_mm": null,
+      "r80_bias_mm": null
+    },
+    {
+      "task": "photon_mri",
+      "case": "1THB011",
+      "segments": 540,
+      "plan_sha256": "43537bd32bc128537d77dd7d61c318feb5249fb26810f7289f39507d5166ee6e",
+      "build_sha256": "6fdb9a2310cf01e1054d55a35e97dd74eec6c171d921097be4ae37b5724f7278",
+      "mae_bands": {
+        "high": 0.010085474438358064,
+        "mid": 0.004237792725763713,
+        "low": 0.0032677100553787034
+      },
+      "gamma_fraction": 0.8792673855484985,
+      "gamma_voxels": 192243,
+      "integral_ratio": 0.9797946290368997,
+      "interp_fraction": 10,
+      "max_gamma": 2,
+      "r80_valid": 0,
+      "r80_attempted": 0,
+      "r80_mae_mm": null,
+      "r80_bias_mm": null
+    },
+    {
+      "task": "proton_mri",
+      "case": "1ABB118",
+      "segments": 1080,
+      "plan_sha256": "aa611934968dedfe918f4e0beb401b7f81996efbeda93b8787485da234a99b99",
+      "build_sha256": "867e123565ea673181216d6a359408fe2ae5427ae81e953ce278fddfa8147059",
+      "mae_bands": {
+        "high": 0.027666846253681678,
+        "mid": 0.01452568377193715,
+        "low": 0.007172897849789766
+      },
+      "gamma_fraction": 0.8280295378253196,
+      "gamma_voxels": 630649,
+      "integral_ratio": 0.9986201216738203,
+      "r80_reference": "unthresholded MC; unchanged original range analysis",
+      "r80_valid": 132,
+      "r80_attempted": 150,
+      "r80_mae_mm": 2.477272727272727,
+      "r80_bias_mm": -1.2196969696969697
+    },
+    {
+      "task": "proton_mri",
+      "case": "1THB011",
+      "segments": 1080,
+      "plan_sha256": "a59da7f36e9e5473cc683a861d67e7bb483e1be11020f8ad94cfd8d5bf351b42",
+      "build_sha256": "ed10710d56c1afde3fa36c54e19494ac462a66f67401573749ed61955fa8406b",
+      "mae_bands": {
+        "high": 0.015677190123992314,
+        "mid": 0.011100751894671,
+        "low": 0.00528964107734061
+      },
+      "gamma_fraction": 0.8531449390761365,
+      "gamma_voxels": 763576,
+      "integral_ratio": 1.005194810129747,
+      "r80_reference": "unthresholded MC; unchanged original range analysis",
+      "r80_valid": 146,
+      "r80_attempted": 150,
+      "r80_mae_mm": 1.3972602739726028,
+      "r80_bias_mm": 0.1780821917808219
+    }
+  ]
+}

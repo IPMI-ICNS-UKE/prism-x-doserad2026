@@ -1,0 +1,56 @@
+{
+  "version": 3,
+  "release_commit": "45b999efe45a23d666d3ea08f16c5a18b40891f0",
+  "cases": [
+    "1ABB118",
+    "1THB011"
+  ],
+  "tasks": [
+    "photon_ct",
+    "photon_mri",
+    "proton_ct",
+    "proton_mri"
+  ],
+  "cohort_role": "development; excluded from neural weight training but used for model development and calibration",
+  "mr_exclusion_evidence": "Author confirmation, 2026-10-06: both patients were excluded throughout density-network training.",
+  "cross_validation": false,
+  "density_model": "weights/mr-density.pt",
+  "photon_model": "weights/photon.pt",
+  "proton_model": "weights/proton.pt",
+  "calibration": "unchanged release v1.0.0 commissioning files; no fitting or scale sweep",
+  "segments": "all segments in each patient's released training plan",
+  "inference_batch_segments": 12,
+  "batching": "Reset the released per-invocation cone cache every 12 segments; reuse the same density volume and unchanged model. Accumulate all output frames.",
+  "plan_weights": "unit weights, not clinical optimization weights",
+  "minimum_cutoff_gy": 3e-7,
+  "prediction_path": "unmodified released runtime; collect float32 output frames after cutoff before serialization",
+  "plan_mae": "high >=80%, mid [30%,80%), low [10%,30%) of reference plan maximum; normalized by that maximum",
+  "integral_ratio": "sum(prediction)/sum(reference), complete native grid",
+  "gamma": {
+    "local": true,
+    "dose_percent": 1,
+    "distance_mm": 1,
+    "lower_percent_dose_cutoff": 10,
+    "interp_fraction": 10,
+    "max_gamma": 2
+  },
+  "r80": {
+    "beamlets_per_patient_per_proton_task": 150,
+    "selection": "evenly spaced segment indices",
+    "radius_mm": 3,
+    "reference_gate_fraction": 0.01,
+    "bin_width_wed_mm": 1,
+    "coordinate_density": "task density",
+    "prediction": "native-grid output, including cutoff",
+    "exclude": "undefined reference or prediction R80, or no reference falloff below 50% after peak",
+    "reference": "unthresholded MC; separate original range-scoring analysis"
+  },
+  "timing": "synchronized dose prediction only on a shared GPU; exploratory, not a publication runtime benchmark; excludes density, loading, metric computation and serialization",
+  "original_build_protocol": "release-evaluation.json",
+  "original_build_protocol_sha256": "1bf256ba8856d1b997fb93c95d729e6ce6c0511808657e6679c6701e259df379",
+  "reference_cutoff_gy": 3e-7,
+  "cutoff_application": "predicted and reference segment dose <= cutoff is zeroed before unit-weight plan summation",
+  "prediction_changed_from_original_build": false,
+  "selection": "All complete original release-output plans; no diagnostic preprocessing variant or refitted calibration selected",
+  "comparison_scope": "Thresholded release-output maps, not the unthresholded physical dose field or hidden leaderboard"
+}

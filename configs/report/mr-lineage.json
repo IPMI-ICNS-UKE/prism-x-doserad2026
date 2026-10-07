@@ -1,0 +1,71 @@
+{
+  "purpose": "Metadata for the released shared density network, not a complete executable retraining recipe",
+  "source_checkpoint_sha256": "e3a8e6a2cfd34f804f1256995bc1480f4065db854b55aa23aab903d2e183b570",
+  "external_pretrained_initialization": false,
+  "training_data": "paired DoseRAD photon-grid CT and MR",
+  "input_spacing_mm": [
+    2,
+    2,
+    2
+  ],
+  "training_batch": "one full patient volume",
+  "stages": [
+    {
+      "name": "initial_density_and_dose",
+      "run": "mr_density_v4_clean",
+      "initialization": "random",
+      "configured_density_updates": 5000,
+      "configured_dose_updates": 5000,
+      "dose_engine": "frozen historical Photon",
+      "excluded_cases": [
+        "1ABB118",
+        "1THB011"
+      ],
+      "exact_selected_checkpoint_hash": null
+    },
+    {
+      "name": "abdomen_dose_adaptation",
+      "run": "mr_ft_abd_lam4",
+      "initialization": "mr_density_v4_clean/best.pt",
+      "configured_dose_updates": 2500,
+      "selected_step": 1000,
+      "density_loss_weight": 4,
+      "max_lr": 0.0001,
+      "warmup_updates": 200,
+      "data_view": "historical abdomen-only view",
+      "exact_data_view_manifest": null
+    },
+    {
+      "name": "abdomen_density_refinement",
+      "run": "mr_retrain_abd_air",
+      "initialization": "mr_ft_abd_lam4/best.pt",
+      "density_updates_to_export": 800,
+      "dose_updates_in_export": 0,
+      "max_lr": 0.0003,
+      "warmup_updates": 100,
+      "air_loss_weight": 0.5,
+      "bone_weight_increment": 5
+    },
+    {
+      "name": "final_density_refinement",
+      "run": "final_submit",
+      "initialization": "mr_retrain_abd_air/anchor.pt",
+      "density_updates": 1500,
+      "dose_updates": 0,
+      "max_lr": 0.0003,
+      "warmup_updates": 100,
+      "weight_decay": 0.01,
+      "seed": 0,
+      "air_loss_weight": 0.5,
+      "bone_weight_increment": 5,
+      "selection": "last EMA",
+      "stored_excluded_cases": [
+        "1ABB118"
+      ],
+      "manifest_claimed_training_cases": 73,
+      "exposure_of_1THB011": "excluded, confirmed by the author on 2026-10-06",
+      "author_confirmed_excluded_cases": ["1ABB118", "1THB011"],
+      "exclusion_evidence": "Author confirms both patients were excluded throughout training; the stored val_case argument lists only 1ABB118."
+    }
+  ]
+}

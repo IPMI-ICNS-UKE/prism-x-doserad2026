@@ -33,3 +33,9 @@ These patients are not an independent test cohort for the historical models. The
 - Nine source-only tests passed. Existing Photon computational modules and Photon/MR-density weights are unchanged; only the task dispatcher was extended.
 
 The new Proton adapter has not been evaluated on the hidden leaderboard or compared with the final submitted Proton containers. Photon A40 evidence above applies to the earlier Photon package. No full historical retrain or clinical validation is claimed.
+
+## Report evaluation, 7 October 2026
+
+All eight patient-task plans were evaluated with the unchanged v1.0.0 weights and calibration. The revised tables use matched per-segment cutoffs and the archived scoring protocol in `experiments/report/`. The exact R80 selection retains valid and excluded beamlets.
+
+Eight CPU checks passed for the report metric functions, cutoff-before-summation, gamma failure handling, protocol/table hashes and agreement of all individual R80 measurements with the published aggregates. These checks do not constitute a second full inference run.

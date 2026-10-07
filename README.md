@@ -10,6 +10,7 @@ Use Linux, Python 3.10 and PyTorch 2.3.1 / CUDA 12.1. Install `requirements.txt`
 
 ```sh
 python -m pip install -r requirements.txt
+python -m pip install -r experiments/report/requirements.txt
 python -m unittest discover -s tests -v
 python scripts/check_install.py
 ```
@@ -31,7 +32,7 @@ Containers serve `/health` and `/invoke` on port 4743. Mount inputs read-only at
 
 ## Training and models
 
-[Training](TRAINING.md) · [Models](MODEL_CARD.md) · [Checks](VERIFICATION.md)
+[Training](TRAINING.md) · [Models](MODEL_CARD.md) · [Checks](VERIFICATION.md) · [Report evaluation](experiments/report/README.md)
 
 This is a method release, not a reproduction of all final leaderboard containers. The software is not clinically validated.
 

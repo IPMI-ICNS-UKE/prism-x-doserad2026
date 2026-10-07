@@ -1,0 +1,52 @@
+{
+  "source_checkpoint": "runs/proton_recom_v2/best.pt",
+  "source_checkpoint_sha256": "5bb719f2f93634449745b221adf0a98864988fd1382fa8117956f76cc27f2f09",
+  "release_weights": "weights/proton.pt",
+  "release_weights_sha256": "2b758dc10f8315a705589a415459a3f92a8a896b05a05dc00c2e3c7c99905e6b",
+  "saved_step": 50000,
+  "saved_best_val": 0.0820512784850215,
+  "weights_used": "ema",
+  "saved_args": {
+    "data": ["data/proton/training"],
+    "val_case": "1ABB118,1THB011",
+    "val_beam": 2,
+    "steps": 50000,
+    "queries": 8192,
+    "lr": 0.002,
+    "weight_decay": 0.01,
+    "warmup_steps": 500,
+    "device": "cuda",
+    "out": "runs/proton_recom_v2",
+    "seed": 0,
+    "val_every": 1000,
+    "val_beamlets": 16,
+    "log_every": 50,
+    "cache_gb": 10.0,
+    "bragg": "commissioning/proton_bragg.npz",
+    "dose_scale": 0.0009138865862041712,
+    "lambda_idd": 0.5,
+    "sel_lambda": 1.0,
+    "resume": null
+  },
+  "log_evidence": {
+    "archive": "prismx_gpu_main_ignored_research_20260831.tar.gz",
+    "member": "runs/proton_recom_v2/log.jsonl",
+    "step": 50000,
+    "val_loss": 0.06586265424266458,
+    "val_int_bias": 0.016188624242356918,
+    "val_sel": 0.0820512784850215
+  },
+  "loss_weight_evidence": {
+    "distal_stratum_relative_mse_weight": 2,
+    "other_stratum_relative_mse_weight": 1,
+    "log_loss_weight": 0.3,
+    "central_axis_depth_profile_weight": 0.5,
+    "first_trainer_commit": "6e7568db61f6f1b3080023b1f9ee5ac59381ea2c",
+    "historical_trainer_commit": "815166a27a700101b11bf3db0064e4f7e3a8da97",
+    "historical_trainer_path": "scripts/train_proton.py",
+    "historical_trainer_sha256": "381c14730cb04b186c103ec1c3b7e58b16e57370f39b4b298eb7383b33f4ba86",
+    "release_trainer_is_identical": true,
+    "training_code_commit_embedded_in_checkpoint": false,
+    "evidence_scope": "Historical trainer and checkpoint arguments, not a run-time source snapshot"
+  }
+}
