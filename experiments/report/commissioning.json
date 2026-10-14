@@ -1,27 +1,44 @@
 {
+  "what_this_is": "Which data fixed the analytical baselines (shape fitting) and the dose amplitude factor k in D(x) = k [A(x) m(x) + a(x)] (amplitude calibration). Shape fitting used a training patient; amplitude calibration used the two development patients that are also evaluated in the report. The values below are those of release v1.0.0 and were not refitted for the report evaluation.",
   "shape_fitting": {
     "photon": {
       "case": "1ABB006",
       "control_points": 90,
-      "selection": "unique(((arange(90) + 0.5) * 540 / 90).astype(int)); original plan order",
+      "selection": "every sixth control point of the plan in original order: unique(((arange(90) + 0.5) * 540 / 90).astype(int))",
+      "fitted": "depth-dose profile P(WED) from depth-wise medians after removing fluence and inverse-square effects; three-exponential parametrization",
       "file": "commissioning/synthrad_photon_pdd.npz",
-      "sha256": "997936dea25e32932036efedf50f1afd335290302388d0095fa1bf0141b217ed",
-      "evidence": "Commissioning record of 11 June 2026 specifies 90 control points of 1ABB006; the released table is byte-identical to the archived table."
+      "sha256": "997936dea25e32932036efedf50f1afd335290302388d0095fa1bf0141b217ed"
     },
     "proton": {
       "case": "1ABB006",
       "beamlets": 200,
-      "selection": "unique(((arange(200) + 0.5) * 1080 / 200).astype(int)); original plan order",
+      "selection": "200 of 1080 beamlets, evenly spaced in original order: unique(((arange(200) + 0.5) * 1080 / 200).astype(int))",
+      "fitted": "range-energy relation from central-axis falloff, Bragg curve as Bortfeld profile, entrance width and lateral broadening parameters from lateral dose moments",
       "file": "commissioning/proton_bragg.npz",
-      "sha256": "8e1e0762b8b2188cfda7fd94a640a682c2c64b8692dabd435b5ede8af177b297",
-      "evidence": "Archived recommissioning command specifies 1ABB006 and 200 beamlets. The released table is byte-identical to the archived table after amplitude calibration."
+      "sha256": "8e1e0762b8b2188cfda7fd94a640a682c2c64b8692dabd435b5ede8af177b297"
     }
   },
   "dose_amplitude_calibration": {
+    "k_definition": "multiplies model-dose units to Monte Carlo dose-to-medium in Gy; applied once per segment at inference",
     "development_cases": ["1ABB118", "1THB011"],
-    "proton": "The fitted training scale 0.0009138865862041712 was multiplied by 1.015 for inference; range and lateral width were unchanged.",
-    "photon_mri": "The released site-specific scales were calibrated on these development cases.",
+    "photon_ct": {
+      "k": 5.437449455848826e-05,
+      "source": "prismx/inference.py (PHOTON_SCALE); identical to the training normalization dose_scale in configs/training/photon.json"
+    },
+    "photon_mri": {
+      "k_abd": 5.4415101245787755e-05,
+      "k_thx": 5.4400891126726915e-05,
+      "relative_to_photon_ct": {"abd": 1.00075, "thx": 1.00049},
+      "source": "commissioning/photon_mri_dose_scale.json"
+    },
+    "proton": {
+      "training_dose_scale": 0.0009138865862041712,
+      "inference_factor": 1.015,
+      "k": 0.0009275948978029191,
+      "applies_to": ["ct", "mri"],
+      "source": "commissioning/proton_bragg.npz (key dose_scale); training value in configs/training/proton.json",
+      "note": "range-energy relation and lateral width unchanged by the factor"
+    },
     "refitted_for_this_evaluation": false
-  },
-  "fluence_blur_standard_deviations_mm": [5, 15, 45]
+  }
 }
